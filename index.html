@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVO Design | Geleceğin Estetiği</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="loader">
+      <div class="loader-content">
+        <img src="logo.png" alt="EVO" class="loader-logo-img" />
+        <div class="progress-container">
+          <div class="progress-bar"></div>
+        </div>
+        <div class="loading-percentage">0%</div>
+      </div>
+    </div>
+
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="hamburger-menu">
+      <div class="bar bar-1"></div>
+      <div class="bar bar-2"></div>
+    </div>
+
+    <nav class="navbar">
+      <a href="#" class="logo-link">
+        <img src="logo.png" alt="EVO" class="nav-logo-img" />
+      </a>
+      <ul class="nav-links desktop-only">
+        <li><a href="#" class="hover-link">Erkek</a></li>
+        <li><a href="#" class="hover-link">Kadın</a></li>
+        <li><a href="#" class="hover-link">Koleksiyon</a></li>
+      </ul>
+      <div class="nav-icons">
+        <span class="hover-link search-trigger">Ara</span>
+        <span id="cart-count" class="hover-link">Sepet (0)</span>
+      </div>
+    </nav>
+
+    <div class="menu-backdrop"></div>
+    <div class="sidebar-menu">
+      <div class="sidebar-image-preview">
+        <img src="" alt="" />
+      </div>
+
+      <div class="sidebar-content-wrapper">
+        <div class="sidebar-links">
+          <a href="#" class="sidebar-link" data-img="./images/frame_10.jpg"
+            ><span>01.</span> Yeni Gelenler</a
+          >
+          <a href="#" class="sidebar-link" data-img="./images/frame_25.jpg"
+            ><span>02.</span> Erkek Giyim</a
+          >
+          <a href="#" class="sidebar-link" data-img="./images/frame_45.jpg"
+            ><span>03.</span> Kadın Giyim</a
+          >
+          <a href="#" class="sidebar-link" data-img="./images/frame_55.jpg"
+            ><span>04.</span> Aksesuarlar</a
+          >
+          <a href="#" class="sidebar-link" data-img="./images/frame_5.jpg"
+            ><span>05.</span> Hikaye</a
+          >
+          <a href="#" class="sidebar-link" data-img="./images/frame_1.jpg"
+            ><span>06.</span> İletişim</a
+          >
+        </div>
+        <div class="sidebar-footer">
+          <div class="socials">
+            <a href="#">Instagram</a> <a href="#">Twitter</a>
+            <a href="#">LinkedIn</a>
+          </div>
+          <p>EVO DESIGN © 2025</p>
+        </div>
+      </div>
+    </div>
+
+    <header class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title reveal-text">Köklere Dönüş.</h1>
+        <p class="hero-subtitle reveal-text delay-1">
+          Yeni Sezon '26 — EVO Originals ile Tanışın.
+        </p>
+        <div class="cta-wrapper reveal-text delay-2">
+          <a href="#collection" class="btn-primary">Keşfetmeye Başla</a>
+        </div>
+      </div>
+      <div class="hero-image-container reveal-img">
+        <img src="images/frame_1.jpg" alt="EVO Hero" />
+      </div>
+    </header>
+
+    <section class="marquee">
+      <div class="track">
+        <div class="content">
+          &nbsp;EVO DESIGN — EVRİMİ DENEYİMLE — LİMİT TANIMA — SAF ESTETİK —
+        </div>
+        <div class="content">
+          &nbsp;EVO DESIGN — EVRİMİ DENEYİMLE — LİMİT TANIMA — SAF ESTETİK —
+        </div>
+      </div>
+    </section>
+
+    <section class="video-scroll-container">
+      <div class="sticky-viewport">
+        <canvas id="video-canvas"></canvas>
+        <div class="video-overlay-text">
+          <h2>EVO ORIGINALS</h2>
+          <p id="loading-text">Yükleniyor...</p>
+          <h3>Evrim, 2026'da başlıyor.</h3>
+        </div>
+      </div>
+    </section>
+
+    <section class="marquee">
+      <div class="track">
+        <div class="content">
+          &nbsp;EVO DESIGN — EVRİMİ DENEYİMLE — LİMİT TANIMA — SAF ESTETİK —
+          ORIGINALS // '26 —
+        </div>
+        <div class="content">
+          &nbsp;EVO DESIGN — EVRİMİ DENEYİMLE — LİMİT TANIMA — SAF ESTETİK —
+          ORIGINALS // '26 —
+        </div>
+      </div>
+    </section>
+
+    <section class="drag-gallery">
+      <div class="drag-header">
+        <h2 style="letter-spacing: 3px">STREETWEAR by EVO.</h2>
+        <p>Sürükle ve Keşfet &mdash; Drag to Explore</p>
+      </div>
+      <div class="drag-track-container">
+        <div class="drag-track">
+          <div class="drag-item">
+            <div class="drag-img">
+              <img
+                src="https://images.unsplash.com/photo-1523396870176-f5793508b999?q=80&w=1000&auto=format&fit=crop"
+                draggable="false"
+              />
+            </div>
+            <span>01 // URBAN</span>
+          </div>
+          <div class="drag-item">
+            <div class="drag-img">
+              <img
+                src="https://images.unsplash.com/photo-1512353087810-25dfcd100962?q=80&w=1000&auto=format&fit=crop"
+                draggable="false"
+              />
+            </div>
+            <span>02 // EVOLUTION</span>
+          </div>
+          <div class="drag-item">
+            <div class="drag-img">
+              <img
+                src="https://images.unsplash.com/photo-1504194921103-f8b80cadd5e4?q=80&w=1000&auto=format&fit=crop"
+                draggable="false"
+              />
+            </div>
+            <span>03 // VISION</span>
+          </div>
+          <div class="drag-item">
+            <div class="drag-img">
+              <img
+                src="https://images.unsplash.com/photo-1550614000-4b9519e00664?q=80&w=1000&auto=format&fit=crop"
+                draggable="false"
+              />
+            </div>
+            <span>04 // RETRO</span>
+          </div>
+          <div class="drag-item">
+            <div class="drag-img">
+              <img
+                src="https://images.unsplash.com/photo-1536766820879-059fec98ec0a?q=80&w=1000&auto=format&fit=crop"
+                draggable="false"
+              />
+            </div>
+            <span>05 // FUTURE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="collection" class="collection">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="reveal-scroll">EVO BASICS</h2>
+          <p class="reveal-scroll">
+            Minimalizm ile yüksek terziliğin kesişim noktası.
+          </p>
+        </div>
+        <div class="product-grid">
+          <div class="product-card reveal-scroll">
+            <div class="img-box">
+              <img
+                src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop"
+              />
+            </div>
+            <div class="details">
+              <h3>EVO Basic Hoodie</h3>
+              <span>₺4.500</span>
+              <button class="btn-add-cart">Sepete Ekle</button>
+            </div>
+          </div>
+          <div class="product-card reveal-scroll delay-1">
+            <div class="img-box">
+              <img
+                src="https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?q=80&w=1000&auto=format&fit=crop"
+              />
+            </div>
+            <div class="details">
+              <h3>EVO Basic T-Shirt</h3>
+              <span>₺1.200</span>
+              <button class="btn-add-cart">Sepete Ekle</button>
+            </div>
+          </div>
+          <div class="product-card reveal-scroll delay-2">
+            <div class="img-box">
+              <img
+                src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop"
+              />
+            </div>
+            <div class="details">
+              <h3>STWD ÇÖP</h3>
+              <span>₺3.800</span>
+              <button class="btn-add-cart">Sepete Ekle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="manifesto">
+      <div class="manifesto-content reveal-scroll">
+        <h2>"MODA BİR GÖRÜNTÜ DEĞİL,<br />BİR TAVIRDIR."</h2>
+        <p class="quote-author">YOUR STYLE IS YOUR SIGNATURE</p>
+        <a href="#" class="link-underline">Hikayemiz</a>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="newsletter-content reveal-scroll">
+        <h2>HABERDAR OL</h2>
+        <p>Geleceğin koleksiyonları ve özel davetler için listeye gir.</p>
+        <form id="newsletter-form">
+          <div class="input-group">
+            <input type="email" placeholder="E-posta adresin" required />
+            <button type="submit" class="btn-submit">KAYIT OL</button>
+          </div>
+          <span class="form-message"></span>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-col brand-col">
+          <h3>EVO.</h3>
+          <p>
+            Sokak kültürünü yüksek moda ile birleştiren,<br />
+            zamansız tasarım dili.
+          </p>
+        </div>
+
+        <div class="footer-col links-col">
+          <h4>KEŞFET</h4>
+          <a href="#">//EVO ORIGINALS '26</a>
+          <a href="#">Koleksiyon</a>
+          <a href="#">Manifesto</a>
+          <a href="#">Lookbook '26</a>
+        </div>
+
+        <div class="footer-col contact-col">
+          <h4>İLETİŞİM</h4>
+          <a href="mailto:evodesign.store@gmail.com" class="contact-link"
+            >evodesign.store@gmail.com</a
+          >
+          <div class="footer-socials">
+            <a href="#">INSTAGRAM</a>
+            <a href="#">TWITTER</a>
+            <a href="#">LINKEDIN</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 EVO Design. Tüm hakları saklıdır.</p>
+        <div class="legal-links">
+          <a href="#">Gizlilik</a>
+          <a href="#">Şartlar</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
