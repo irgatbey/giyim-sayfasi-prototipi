@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVO Design | Hikayemiz</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="loader">
+      <div class="loader-content">
+        <img src="logo.png" alt="EVO" class="loader-logo-img" />
+      </div>
+    </div>
+
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="hamburger-menu">
+      <div class="bar bar-1"></div>
+      <div class="bar bar-2"></div>
+    </div>
+
+    <nav class="navbar">
+      <a href="index.html" class="logo-link">
+        <img src="logo.png" alt="EVO" class="nav-logo-img" />
+      </a>
+      <ul class="nav-links desktop-only">
+        <li>
+          <a href="index.html#collection" class="hover-link">Koleksiyon</a>
+        </li>
+        <li>
+          <a
+            href="about.html"
+            class="hover-link"
+            style="opacity: 1; border-bottom: 1px solid #fff"
+            >Hikaye</a
+          >
+        </li>
+        <li><a href="contact.html" class="hover-link">İletişim</a></li>
+      </ul>
+      <div class="nav-icons">
+        <span class="hover-link">ARA</span>
+        <span id="cart-count" class="hover-link">SEPET (0)</span>
+      </div>
+      <div class="mobile-cart-trigger">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span class="mobile-cart-count">0</span>
+      </div>
+    </nav>
+
+    <div class="menu-backdrop"></div>
+    <div class="sidebar-menu">
+      <div class="sidebar-image-preview"><img src="" alt="" /></div>
+      <div class="sidebar-content-wrapper">
+        <div class="sidebar-links">
+          <a
+            href="index.html"
+            class="sidebar-link"
+            data-img="./images/frame_10.jpg"
+            ><span>01.</span> Ana Sayfa</a
+          >
+          <a
+            href="about.html"
+            class="sidebar-link"
+            data-img="./images/frame_5.jpg"
+            ><span>02.</span> Hikaye</a
+          >
+          <a
+            href="contact.html"
+            class="sidebar-link"
+            data-img="./images/frame_1.jpg"
+            ><span>03.</span> İletişim</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <header class="hero" style="height: 60vh; min-height: 400px">
+      <div class="hero-content">
+        <h1 class="hero-title reveal-text">EVRİMİN<br />KENDİSİ.</h1>
+      </div>
+      <div class="hero-image-container reveal-img">
+        <img src="./images/frame_5.jpg" alt="About EVO" style="opacity: 0.5" />
+      </div>
+    </header>
+
+    <section style="padding: 6rem 4rem; max-width: 900px; margin: 0 auto">
+      <h2
+        class="reveal-scroll"
+        style="
+          font-family: 'Playfair Display', serif;
+          font-size: 3rem;
+          font-style: italic;
+          margin-bottom: 2rem;
+        "
+      >
+        2026 Vizyonu
+      </h2>
+      <p
+        class="reveal-scroll"
+        style="
+          font-size: 1.2rem;
+          line-height: 1.8;
+          color: #ccc;
+          margin-bottom: 2rem;
+        "
+      >
+        EVO Design, sadece bir giyim markası değil, sokak kültürünün dijital
+        çağdaki yansımasıdır. Köklerimiz geçmişin ikonik hatlarında, gözümüz ise
+        geleceğin sınırsız olasılıklarındadır.
+      </p>
+      <p
+        class="reveal-scroll"
+        style="font-size: 1.2rem; line-height: 1.8; color: #ccc"
+      >
+        Her parça, cinsiyetsiz ve zamansız bir estetik anlayışıyla tasarlanır.
+        Biz modayı tüketilen bir ürün olarak değil, yaşanan bir deneyim olarak
+        görüyoruz.
+      </p>
+    </section>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-col brand-col"><h3>EVO.</h3></div>
+        <div class="footer-col links-col">
+          <h4>KEŞFET</h4>
+          <a href="index.html">Ana Sayfa</a>
+          <a href="index.html#collection">Koleksiyon</a>
+        </div>
+        <div class="footer-col contact-col">
+          <h4>İLETİŞİM</h4>
+          <a href="mailto:evodesign.store@gmail.com"
+            >evodesign.store@gmail.com</a
+          >
+        </div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 EVO Design.</p></div>
+    </footer>
+
+    <div class="cart-overlay"></div>
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <h2>SEPETİM (<span class="cart-count-display">0</span>)</h2>
+        <div class="close-cart-btn">&times;</div>
+      </div>
+      <div class="cart-items-container">
+        <div class="empty-cart-msg">Sepetinizde ürün yok.</div>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>TOPLAM</span><span class="total-price">₺0</span>
+        </div>
+        <button class="btn-primary btn-checkout">ÖDEMEYE GEÇ</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

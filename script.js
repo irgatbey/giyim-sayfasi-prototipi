@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- SCROLL LOCK HELPERS ---
   const lockScroll = () => {
+    if (document.body.classList.contains("no-scroll")) return;
+
     // 1. O anki kaydırma pozisyonunu kaydet
     const scrollY = window.scrollY;
 
@@ -150,15 +152,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- 2. VIDEO PLAYER (AUTO LOOP) ---
   // ==========================================================
 
+  const loader = document.querySelector(".loader");
+
   if (container && ctx) {
-    // Sığdırma
+    // --- VİDEOLU SAYFA İÇİN (AĞIR YÜKLEME) ---
     function drawImageContain(ctx, img) {
       const cw = ctx.canvas.width;
       const ch = ctx.canvas.height;
       const imgRatio = img.width / img.height;
       const canvasRatio = cw / ch;
       let rw, rh, sx, sy;
-
       if (canvasRatio > imgRatio) {
         rh = ch;
         rw = img.width * (ch / img.height);
@@ -170,24 +173,19 @@ document.addEventListener("DOMContentLoaded", () => {
         sx = 0;
         sy = (ch - rh) / 2;
       }
-
       ctx.fillStyle = "#000";
       ctx.fillRect(0, 0, cw, ch);
       ctx.drawImage(img, sx, sy, rw, rh);
     }
-
     const render = (index) => {
       if (images[index - 1] && images[index - 1].complete) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawImageContain(ctx, images[index - 1]);
       }
     };
-
-    // Animation Loop
     let lastTime = 0;
     const fps = 24;
     const interval = 1000 / fps;
-
     function playSequence(timestamp) {
       if (!isPlaying) return;
       if (timestamp - lastTime >= interval) {
@@ -198,7 +196,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       requestAnimationFrame(playSequence);
     }
-
     const videoObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -227,52 +224,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const preloadImages = () => {
       let loadedCount = 0;
-      const loader = document.querySelector(".loader");
       const progressBar = document.querySelector(".progress-bar");
       const percentageText = document.querySelector(".loading-percentage");
 
       for (let i = 1; i <= frameCount; i++) {
         const img = new Image();
         img.src = currentFrame(i);
-
         img.onload = () => {
           images[i - 1] = img;
           loadedCount++;
-
-          // Yüzde Hesaplama
           const percent = Math.round((loadedCount / frameCount) * 100);
-
-          // UI Güncelleme
           if (progressBar) progressBar.style.width = `${percent}%`;
           if (percentageText) percentageText.innerText = `${percent}%`;
-
-          // İlk kare yüklendiğinde render al (bekletme yapmamak için)
           if (i === 1) {
             render(1);
             if (loadingText) loadingText.style.display = "none";
           }
-
-          // Hepsi yüklendiğinde
           if (loadedCount === frameCount) {
             setTimeout(() => {
               if (loader) loader.classList.add("loaded");
-              // Sayfa gövdesi scroll'u aç
               document.body.style.overflowY = "auto";
-            }, 500); // %100 olduktan sonra yarım saniye bekle
+            }, 500);
           }
         };
-
+        // Hata olursa da sayacı artır ki takılmasın
         img.onerror = () => {
-          console.error(`Görsel yüklenemedi: frame_${i}.jpg`);
-          // Hata olsa bile sayacı artır ki loader takılı kalmasın
           loadedCount++;
-          if (loadedCount === frameCount) {
-            if (loader) loader.classList.add("loaded");
-          }
+          if (loadedCount === frameCount && loader)
+            loader.classList.add("loaded");
         };
       }
     };
     preloadImages();
+  } else {
+    // --- NORMAL SAYFA İÇİN (HAFİF YÜKLEME) ---
+    // Video yoksa bekleme yapma, sayfayı hemen aç
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        if (loader) loader.classList.add("loaded");
+        document.body.style.overflowY = "auto";
+      }, 500); // Yarım saniye estetik bekleme
+    });
   }
 
   // ==========================================================
@@ -635,20 +627,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // 2. MODAL İÇİNDEKİ BUTON İÇİN DİNLEME
   const modalBtn = document.querySelector(".btn-modal-add");
   if (modalBtn) {
-    // Önce eski event listener'ları temizlemek zor olduğu için
-    // Modalı açan kodun içinde değil, burada tek sefer tanımlıyoruz.
-    // Ancak modal içeriği dinamik değiştiği için, modal açıldığında güncel veriyi okumalıyız.
-    // Basit çözüm: Modal açılırken veriyi butonun dataset'ine yazabiliriz.
-    // Veya direkt modal elementlerinden okuyabiliriz:
     modalBtn.addEventListener("click", () => {
-      const img = document.getElementById("modal-img").src;
-      const title = document.getElementById("modal-title").innerText;
-      const price = document.getElementById("modal-price").innerText;
+      // 1. Ürünü sepete at ve çekmeceyi aç
+      addToCartHandler(
+        modalBtn,
+        modalImg.src,
+        modalTitle.innerText,
+        modalPrice.innerText
+      );
 
-      addToCartHandler(modalBtn, img, title, price);
-
-      // Modalı kapatmak istersen:
-      // document.querySelector(".product-modal-backdrop").classList.remove("active");
+      // 2. Modalı arkada sessizce kapat (Scroll kilidini açmadan!)
+      // 'active' sınıfını siliyoruz ama 'unlockScroll' çağırmıyoruz çünkü sepet zaten kilitli tutacak.
+      modalBackdrop.classList.remove("active");
     });
   }
 });

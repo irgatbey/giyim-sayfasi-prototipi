@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVO Design | İletişim</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="loader">
+      <div class="loader-content">
+        <img src="logo.png" alt="EVO" class="loader-logo-img" />
+      </div>
+    </div>
+
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="hamburger-menu">
+      <div class="bar bar-1"></div>
+      <div class="bar bar-2"></div>
+    </div>
+
+    <nav class="navbar">
+      <a href="index.html" class="logo-link">
+        <img src="logo.png" alt="EVO" class="nav-logo-img" />
+      </a>
+      <ul class="nav-links desktop-only">
+        <li>
+          <a href="index.html#collection" class="hover-link">Koleksiyon</a>
+        </li>
+        <li><a href="about.html" class="hover-link">Hikaye</a></li>
+        <li>
+          <a
+            href="contact.html"
+            class="hover-link"
+            style="opacity: 1; border-bottom: 1px solid #fff"
+            >İletişim</a
+          >
+        </li>
+      </ul>
+      <div class="nav-icons">
+        <span class="hover-link">ARA</span>
+        <span id="cart-count" class="hover-link">SEPET (0)</span>
+      </div>
+      <div class="mobile-cart-trigger">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span class="mobile-cart-count">0</span>
+      </div>
+    </nav>
+
+    <div class="menu-backdrop"></div>
+    <div class="sidebar-menu">
+      <div class="sidebar-image-preview">
+        <img src="" alt="" />
+      </div>
+      <div class="sidebar-content-wrapper">
+        <div class="sidebar-links">
+          <a
+            href="index.html"
+            class="sidebar-link"
+            data-img="./images/frame_10.jpg"
+            ><span>01.</span> Ana Sayfa</a
+          >
+          <a
+            href="about.html"
+            class="sidebar-link"
+            data-img="./images/frame_5.jpg"
+            ><span>02.</span> Hikaye</a
+          >
+          <a
+            href="contact.html"
+            class="sidebar-link"
+            data-img="./images/frame_1.jpg"
+            ><span>03.</span> İletişim</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-wrapper">
+      <div class="contact-left">
+        <h1 class="contact-title reveal-text">BİZE ULAŞIN</h1>
+        <p class="contact-text reveal-text delay-1">
+          Sorularınız, iş birlikleri veya sadece merhaba demek için.<br />
+          <span style="color: #fff">hello@evodesign.com</span>
+        </p>
+        <div class="footer-socials reveal-text delay-2">
+          <a href="#">INSTAGRAM</a> <a href="#">TWITTER</a>
+        </div>
+      </div>
+
+      <div class="contact-right">
+        <form id="contact-form-real" class="contact-form">
+          <div class="input-group" style="margin-bottom: 2rem">
+            <input type="text" placeholder="Adınız" required />
+          </div>
+          <div class="input-group" style="margin-bottom: 2rem">
+            <input type="email" placeholder="E-posta" required />
+          </div>
+          <div class="input-group" style="margin-bottom: 3rem">
+            <input type="text" placeholder="Mesajınız" required />
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%">
+            GÖNDER
+          </button>
+          <span class="form-message"></span>
+        </form>
+      </div>
+    </div>
+
+    <div class="cart-overlay"></div>
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <h2>SEPETİM (<span class="cart-count-display">0</span>)</h2>
+        <div class="close-cart-btn">&times;</div>
+      </div>
+      <div class="cart-items-container">
+        <div class="empty-cart-msg">Sepetinizde ürün yok.</div>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>TOPLAM</span>
+          <span class="total-price">₺0</span>
+        </div>
+        <button class="btn-primary btn-checkout">ÖDEMEYE GEÇ</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

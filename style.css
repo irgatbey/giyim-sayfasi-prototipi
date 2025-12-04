@@ -1311,6 +1311,81 @@ body.no-scroll {
   width: 100%; /* Genişliğin bozulmasını önle */
 }
 
+.footer-socials a {
+  text-decoration: none;
+  color: #fff;
+}
+
+/* =========================================
+   CONTACT PAGE STYLES (RESPONSIVE)
+   ========================================= */
+.contact-wrapper {
+  display: flex;
+  min-height: 100vh;
+  padding-top: 100px; /* Navbar payı */
+}
+
+.contact-left,
+.contact-right {
+  flex: 1;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-left {
+  background: #0a0a0a;
+}
+
+.contact-right {
+  background: #111;
+  align-items: center; /* Formu ortala */
+}
+
+.contact-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 5rem;
+  line-height: 1;
+  margin-bottom: 2rem;
+}
+
+.contact-text {
+  font-size: 1.2rem;
+  color: #888;
+  margin-bottom: 4rem;
+  line-height: 1.6;
+}
+
+.contact-form {
+  width: 100%;
+  max-width: 500px;
+}
+
+/* MOBİL AYARLARI */
+@media (max-width: 768px) {
+  .contact-wrapper {
+    flex-direction: column; /* Yan yana değil, alt alta */
+    padding-top: 70px; /* Mobil navbar boyu */
+  }
+
+  .contact-left,
+  .contact-right {
+    padding: 3rem 1.5rem; /* Kenar boşluklarını daralt */
+    width: 100%;
+    min-height: auto; /* Yüksekliği serbest bırak */
+  }
+
+  .contact-title {
+    font-size: 3.5rem; /* Başlığı küçült */
+  }
+
+  .contact-text {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+}
+
 /* MOBİL UYUMLULUK */
 @media (max-width: 768px) {
   * {
