@@ -1305,7 +1305,13 @@ html {
   display: none; /* Masaüstünde gizle */
 }
 
-/* Responsive */
+body.no-scroll {
+  overflow: hidden; /* Taşmayı engelle */
+  position: fixed; /* Sayfayı olduğu yerde dondur */
+  width: 100%; /* Genişliğin bozulmasını önle */
+}
+
+/* MOBİL UYUMLULUK */
 @media (max-width: 768px) {
   * {
     cursor: auto !important;
@@ -1462,5 +1468,66 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  /* 1. Masaüstü Hoverlarını Mobilde İptal Et */
+  /* Böylece "iki kere tıklama" sorunu biter */
+  .btn-primary:hover,
+  .btn-add-cart:hover,
+  .sidebar-link:hover,
+  .footer-col a:hover {
+    transform: none !important; /* Büyüme/Kayma efektini iptal et */
+    background-color: transparent !important; /* Renk değişimini iptal et */
+    color: inherit !important;
+    border-color: inherit !important;
+  }
+
+  /* İstisna: Sepete Ekle butonunun border rengini koruyalım */
+  .btn-add-cart:hover {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    color: #fff !important;
+  }
+
+  /* 2. Mobilde "Basma" (Tap) Efekti Ekle */
+  /* Kullanıcı parmağını bastığı an çalışır */
+
+  /* Tüm Butonlar ve Linkler İçin */
+  .btn-primary:active,
+  .btn-add-cart:active,
+  .btn-submit:active,
+  .sidebar-link:active,
+  .nav-icons span:active,
+  .mobile-cart-trigger:active,
+  .product-card:active .img-box img, /* Resme basınca resim de tepki versin */
+  .footer-col a:active {
+    transform: scale(0.95) !important; /* Hafifçe küçült */
+    transition: transform 0.1s ease; /* Çok hızlı tepki ver */
+    opacity: 0.8; /* Hafif şeffaflaşsın */
+  }
+
+  /* Sepete Ekle Butonu İçin Özel Active Rengi */
+  .btn-add-cart:active {
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.2
+    ) !important; /* Basınca hafif beyazlaşsın */
+    border-color: #fff !important;
+  }
+
+  /* Sidebar Linkleri İçin Özel Active */
+  .sidebar-link:active {
+    color: #fff !important; /* Basınca parlasın */
+    padding-left: 10px; /* Masaüstündeki kayma efektini basınca yapalım */
+  }
+
+  .btn-primary:active {
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+
+  .btn-checkout:active {
+    background-color: #fff !important;
+    color: #000 !important;
   }
 }

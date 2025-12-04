@@ -1,6 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("EVO Script Başlatıldı...");
 
+  // --- SCROLL LOCK HELPERS ---
+  const lockScroll = () => {
+    // 1. O anki kaydırma pozisyonunu kaydet
+    const scrollY = window.scrollY;
+
+    // 2. Sayfayı tam o noktada dondur (CSS top özelliği ile)
+    document.body.style.top = `-${scrollY}px`;
+    document.body.classList.add("no-scroll");
+  };
+
+  const unlockScroll = () => {
+    // 1. Dondurulmuş pozisyonu hafızadan geri çağır
+    const scrollY = document.body.style.top;
+
+    // 2. Kilidi kaldır ve stilleri temizle
+    document.body.classList.remove("no-scroll");
+    document.body.style.top = "";
+
+    // 3. Kullanıcıyı kaldığı noktaya geri ışınla
+    // (parseInt ile px yazısını sayıya çevirip, - işaretini düzeltiyoruz)
+    window.scrollTo(0, parseInt(scrollY || "0") * -1);
+  };
+
   // 1. Sayfayı en başa al (Refresh yapınca ortadan başlamasın)
   if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
@@ -79,11 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (body.classList.contains("menu-open")) {
       body.classList.remove("menu-open");
       body.classList.remove("animation-done");
-      body.style.overflow = "";
+      unlockScroll();
       clearTimeout(animationTimeout);
     } else {
       body.classList.add("menu-open");
-      body.style.overflow = "hidden";
+      lockScroll();
       animationTimeout = setTimeout(() => {
         if (body.classList.contains("menu-open"))
           body.classList.add("animation-done");
@@ -438,7 +461,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Modalı Aç
             modalBackdrop.classList.add("active");
-            document.body.style.overflow = "hidden"; // Arka planı kilitle
+            lockScroll();
           } else {
             console.error("HATA: Kart verileri eksik!", {
               img: imgElement,
@@ -454,7 +477,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- MODAL KAPATMA İŞLEMLERİ ---
     const closeModal = () => {
       modalBackdrop.classList.remove("active");
-      document.body.style.overflow = ""; // Scrollu geri aç
+      unlockScroll();
     };
 
     if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
@@ -494,13 +517,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const openCart = () => {
     cartDrawer.classList.add("active");
     cartOverlay.classList.add("active");
-    document.body.style.overflow = "hidden";
+    lockScroll();
   };
 
   const closeCart = () => {
     cartDrawer.classList.remove("active");
     cartOverlay.classList.remove("active");
-    document.body.style.overflow = "";
+    unlockScroll();
   };
 
   if (closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
