@@ -1,6 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("EVO Script Başlatıldı...");
 
+  // 1. Sayfayı en başa al (Refresh yapınca ortadan başlamasın)
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+  window.scrollTo(0, 0);
+
+  // 2. Navbar Scroll Efekti
+  const navbar = document.querySelector(".navbar");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  });
+
   // ==========================================================
   // --- 0. DEĞİŞKENLER (VIDEO ICIN) ---
   // ==========================================================
@@ -309,45 +326,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ==========================================================
-  // --- 4. SEPET İŞLEMLERİ (CART ACTION) ---
-  // ==========================================================
-  const cartCountEl = document.getElementById("cart-count");
-  const addButtons = document.querySelectorAll(".btn-add-cart");
-  let cartCount = 0;
-
-  if (cartCountEl && addButtons) {
-    addButtons.forEach((btn) => {
-      btn.addEventListener("click", function (e) {
-        // Butona art arda basılmasını engelle (spam koruması)
-        if (this.classList.contains("added")) return;
-
-        // 1. Sepeti Artır
-        cartCount++;
-        cartCountEl.innerText = `Sepet (${cartCount})`;
-
-        // 2. Buton Görsel Değişimi
-        const originalText = this.innerText;
-        this.innerText = "EKLENDİ";
-        this.classList.add("added");
-
-        // 3. 1.5 Saniye Sonra Eski Haline Dön
-        setTimeout(() => {
-          this.innerText = originalText;
-          this.classList.remove("added");
-        }, 1500);
-      });
-
-      // Cursor efekti için (opsiyonel, mevcut kod yapısına uygun)
-      btn.addEventListener("mouseenter", () => {
-        if (follower) follower.classList.add("cursor-active");
-      });
-      btn.addEventListener("mouseleave", () => {
-        if (follower) follower.classList.remove("cursor-active");
-      });
-    });
-  }
-
-  // ==========================================================
   // --- 5. NEWSLETTER FORM HANDLER ---
   // ==========================================================
   const newsletterForm = document.getElementById("newsletter-form");
@@ -409,5 +387,245 @@ document.addEventListener("DOMContentLoaded", () => {
         sidebarMenu.classList.remove("has-preview");
       });
     }
+  }
+
+  // ==========================================================
+  // --- 7. PRODUCT QUICK VIEW MODAL (FIXED) ---
+  // ==========================================================
+  const modalBackdrop = document.querySelector(".product-modal-backdrop");
+  const closeModalBtn = document.querySelector(".close-modal-btn");
+  const allProductCards = document.querySelectorAll(".product-card");
+
+  // Modal İçerik Elemanları
+  const modalImg = document.getElementById("modal-img");
+  const modalTitle = document.getElementById("modal-title");
+  const modalPrice = document.getElementById("modal-price");
+  const sizeOpts = document.querySelectorAll(".size-opt");
+  const modalAddBtn = document.querySelector(".btn-modal-add");
+
+  if (modalBackdrop && allProductCards.length > 0) {
+    console.log("Modal sistemi devrede. Kart sayısı:", allProductCards.length);
+
+    allProductCards.forEach((card) => {
+      // 1. Resim kutusunu seç (Tıklama alanı)
+      const imgBox = card.querySelector(".img-box");
+
+      if (imgBox) {
+        // Tıklanabilir olduğunu göster
+        imgBox.style.cursor = "pointer";
+
+        imgBox.addEventListener("click", (e) => {
+          e.stopPropagation(); // Tıklamanın başka yere sıçramasını engelle
+          console.log("Ürün resmine tıklandı!");
+
+          // 2. VERİLERİ ÇEK (Daha güvenli yöntem)
+          // Resim
+          const imgElement = card.querySelector("img");
+          // Başlık (h3)
+          const titleElement = card.querySelector("h3");
+
+          // Fiyat (Önce yeni yapıyı, bulamazsa eski yapıyı dener)
+          let priceElement = card.querySelector(".price-action span");
+          if (!priceElement) {
+            priceElement = card.querySelector(".details span");
+          }
+
+          // 3. KONTROL ET VE MODALI DOLDUR
+          if (imgElement && titleElement && priceElement) {
+            modalImg.src = imgElement.src;
+            modalTitle.innerText = titleElement.innerText;
+            modalPrice.innerText = priceElement.innerText;
+
+            // Modalı Aç
+            modalBackdrop.classList.add("active");
+            document.body.style.overflow = "hidden"; // Arka planı kilitle
+          } else {
+            console.error("HATA: Kart verileri eksik!", {
+              img: imgElement,
+              title: titleElement,
+              price: priceElement,
+            });
+            alert("Ürün detayları yüklenemedi. Lütfen konsolu kontrol edin.");
+          }
+        });
+      }
+    });
+
+    // --- MODAL KAPATMA İŞLEMLERİ ---
+    const closeModal = () => {
+      modalBackdrop.classList.remove("active");
+      document.body.style.overflow = ""; // Scrollu geri aç
+    };
+
+    if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
+
+    // Siyah boşluğa tıklayınca kapat
+    modalBackdrop.addEventListener("click", (e) => {
+      if (e.target === modalBackdrop) closeModal();
+    });
+
+    // --- BEDEN SEÇİMİ ---
+    if (sizeOpts) {
+      sizeOpts.forEach((opt) => {
+        opt.addEventListener("click", () => {
+          sizeOpts.forEach((o) => o.classList.remove("selected"));
+          opt.classList.add("selected");
+        });
+      });
+    }
+  }
+
+  // ==========================================================
+  // --- 10. ADVANCED CART SYSTEM (SEPET SİSTEMİ) ---
+  // ==========================================================
+
+  // --- Değişkenler ---
+  let cart = []; // Sepet Dizisi
+  const cartDrawer = document.querySelector(".cart-drawer");
+  const cartOverlay = document.querySelector(".cart-overlay");
+  const closeCartBtn = document.querySelector(".close-cart-btn");
+  const cartItemsContainer = document.querySelector(".cart-items-container");
+  const cartTotalDisplay = document.querySelector(".total-price");
+  const cartCountDisplays = document.querySelectorAll(
+    "#cart-count, .cart-count-display, .mobile-cart-count"
+  );
+
+  // Sepeti Aç/Kapat Fonksiyonları
+  const openCart = () => {
+    cartDrawer.classList.add("active");
+    cartOverlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeCart = () => {
+    cartDrawer.classList.remove("active");
+    cartOverlay.classList.remove("active");
+    document.body.style.overflow = "";
+  };
+
+  if (closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
+  if (cartOverlay) cartOverlay.addEventListener("click", closeCart);
+  // Menüdeki "Sepet" yazısına basınca açılması için
+  const navCartLink = document.getElementById("cart-count");
+  if (navCartLink) navCartLink.addEventListener("click", openCart);
+  const mobileCartBtn = document.querySelector(".mobile-cart-trigger");
+  if (mobileCartBtn) mobileCartBtn.addEventListener("click", openCart);
+
+  // --- Sepeti Ekrana Basma (Render) ---
+  const renderCart = () => {
+    // 1. İçeriği Temizle
+    cartItemsContainer.innerHTML = "";
+
+    // 2. Sepet Boşsa Mesaj Göster
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML =
+        '<div class="empty-cart-msg">Sepetinizde ürün yok.</div>';
+      cartTotalDisplay.innerText = "₺0";
+      updateCartCount(0);
+      return;
+    }
+
+    // 3. Ürünleri Listele
+    let total = 0;
+    cart.forEach((item, index) => {
+      // Fiyatı sayıya çevir (₺4.500 -> 4500)
+      let priceNum = parseFloat(item.price.replace(/[^\d]/g, "")); // Sadece rakamları al
+      // Eğer fiyat 4500 gibi geliyorsa sorun yok, ama kuruşlu gelirse diye kontrol
+      if (isNaN(priceNum)) priceNum = 0;
+
+      total += priceNum;
+
+      const itemEl = document.createElement("div");
+      itemEl.classList.add("cart-item");
+      itemEl.innerHTML = `
+        <img src="${item.img}" alt="${item.title}">
+        <div class="item-details">
+          <h4>${item.title}</h4>
+          <p>${item.price}</p>
+          <span class="item-remove" data-index="${index}">Kaldır</span>
+        </div>
+      `;
+      cartItemsContainer.appendChild(itemEl);
+    });
+
+    // 4. Toplamı ve Sayacı Güncelle
+    cartTotalDisplay.innerText = "₺" + total.toLocaleString("tr-TR");
+    updateCartCount(cart.length);
+
+    // 5. Kaldır Butonlarına Event Ekle
+    document.querySelectorAll(".item-remove").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const indexToDelete = e.target.getAttribute("data-index");
+        cart.splice(indexToDelete, 1); // Diziden sil
+        renderCart(); // Tekrar çiz
+      });
+    });
+  };
+
+  const updateCartCount = (count) => {
+    cartCountDisplays.forEach((el) => {
+      // Eğer menüdeki ise "Sepet (X)", değilse sadece "X"
+      if (el.id === "cart-count") el.innerText = `Sepet (${count})`;
+      else el.innerText = count;
+    });
+  };
+
+  // --- Ürün Ekleme Mantığı (Grid ve Modal İçin Ortak) ---
+  const addToCartHandler = (btn, img, title, price) => {
+    // 1. Buton Animasyonu (Pop Effect)
+    btn.classList.add("animating");
+    const originalText = btn.innerText;
+    btn.innerText = "✓"; // Tik işareti
+
+    setTimeout(() => {
+      btn.classList.remove("animating");
+      btn.innerText = originalText;
+    }, 1000);
+
+    // 2. Sepet Dizisine Ekle
+    cart.push({ img, title, price });
+
+    // 3. Sepeti Güncelle ve Aç
+    renderCart();
+    openCart();
+  };
+
+  // 1. GRID BUTONLARI İÇİN DİNLEME
+  document.querySelectorAll(".btn-add-cart").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation(); // Kart tıklamasını engelle
+      const card = btn.closest(".product-card");
+      const img = card.querySelector("img").src;
+      const title = card.querySelector("h3").innerText;
+
+      // Fiyat bulma (Yeni/Eski yapı uyumlu)
+      let price = "₺0";
+      const priceEl =
+        card.querySelector(".price-action span") ||
+        card.querySelector(".details span");
+      if (priceEl) price = priceEl.innerText;
+
+      addToCartHandler(btn, img, title, price);
+    });
+  });
+
+  // 2. MODAL İÇİNDEKİ BUTON İÇİN DİNLEME
+  const modalBtn = document.querySelector(".btn-modal-add");
+  if (modalBtn) {
+    // Önce eski event listener'ları temizlemek zor olduğu için
+    // Modalı açan kodun içinde değil, burada tek sefer tanımlıyoruz.
+    // Ancak modal içeriği dinamik değiştiği için, modal açıldığında güncel veriyi okumalıyız.
+    // Basit çözüm: Modal açılırken veriyi butonun dataset'ine yazabiliriz.
+    // Veya direkt modal elementlerinden okuyabiliriz:
+    modalBtn.addEventListener("click", () => {
+      const img = document.getElementById("modal-img").src;
+      const title = document.getElementById("modal-title").innerText;
+      const price = document.getElementById("modal-price").innerText;
+
+      addToCartHandler(modalBtn, img, title, price);
+
+      // Modalı kapatmak istersen:
+      // document.querySelector(".product-modal-backdrop").classList.remove("active");
+    });
   }
 });

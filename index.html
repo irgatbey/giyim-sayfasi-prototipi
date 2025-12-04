@@ -46,6 +46,23 @@
         <span class="hover-link search-trigger">Ara</span>
         <span id="cart-count" class="hover-link">Sepet (0)</span>
       </div>
+      <div class="mobile-cart-trigger">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span class="mobile-cart-count">0</span>
+      </div>
     </nav>
 
     <div class="menu-backdrop"></div>
@@ -207,7 +224,7 @@
               />
             </div>
             <div class="details">
-              <h3>EVO Basic Hoodie</h3>
+              <h3>EVO BASIC HOODIE</h3>
               <span>₺4.500</span>
               <button class="btn-add-cart">Sepete Ekle</button>
             </div>
@@ -219,7 +236,7 @@
               />
             </div>
             <div class="details">
-              <h3>EVO Basic T-Shirt</h3>
+              <h3>EVO BASIC T-SHIRT</h3>
               <span>₺1.200</span>
               <button class="btn-add-cart">Sepete Ekle</button>
             </div>
@@ -301,6 +318,55 @@
         </div>
       </div>
     </footer>
+
+    <div class="product-modal-backdrop">
+      <div class="product-modal">
+        <div class="close-modal-btn">&times;</div>
+        <div class="modal-left">
+          <img id="modal-img" src="" alt="Ürün Detayı" />
+        </div>
+        <div class="modal-right">
+          <h2 id="modal-title">ÜRÜN ADI</h2>
+          <p id="modal-price">₺0.00</p>
+          <p class="modal-desc">
+            %100 Organik pamuk, oversize kesim. Sokak stili için özel olarak
+            tasarlandı. Minimalist detaylar ve yüksek kalite işçilik.
+          </p>
+
+          <div class="modal-options">
+            <span>BEDEN:</span>
+            <div class="size-selector">
+              <div class="size-opt">S</div>
+              <div class="size-opt selected">M</div>
+              <div class="size-opt">L</div>
+              <div class="size-opt">XL</div>
+            </div>
+          </div>
+
+          <button class="btn-primary btn-modal-add">SEPETE EKLE</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-overlay"></div>
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <h2>SEPETİM (<span class="cart-count-display">0</span>)</h2>
+        <div class="close-cart-btn">&times;</div>
+      </div>
+
+      <div class="cart-items-container">
+        <div class="empty-cart-msg">Sepetinizde ürün yok.</div>
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>TOPLAM</span>
+          <span class="total-price">₺0</span>
+        </div>
+        <button class="btn-primary btn-checkout">ÖDEMEYE GEÇ</button>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
